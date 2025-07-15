@@ -2,7 +2,6 @@ package com.khan.quiz.quiz.config;
 
 import com.khan.quiz.quiz.service.CustomUserDetailsService;
 import com.khan.quiz.quiz.utils.JwtAuthFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,28 +21,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
     @Autowired
-    private final JwtAuthFilter jwtAuthFilter;
+    private JwtAuthFilter jwtAuthFilter;
     @Autowired
-    private final CustomUserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults()) // Enable CORS
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for stateless API's
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // No session
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/auth/**").permitAll() // Public endpoints
+                        .anyRequest().authenticated() // Everything else requires authentication
                 )
                 .exceptionHandling(ex ->
                         ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
 
         return http.build();
     }
