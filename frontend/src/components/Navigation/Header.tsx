@@ -1,6 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axiosInstance from "../../api/axiosInstance";
 
-export default function MainNavigation() {
+export default function Header() {
+  const navigate = useNavigate();
+
+   const handleLogout = async () => {
+    try {
+      await axiosInstance.post("/auth/logout");
+      // Clear token from localStorage or cookies if needed (optional)
+      localStorage.removeItem("token");
+      navigate("/auth?mode=SignIn");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+  
   return (
     <header className="bg-gradient-to-r from-orange-50 to-pink-50 shadow-md">
       <nav className="container mx-auto flex items-center justify-between px-6 py-4">
@@ -38,6 +52,14 @@ export default function MainNavigation() {
             >
               Sign in
             </NavLink>
+          </li>
+          <li>
+            <button
+              onClick={handleLogout}
+              className="text-base font-medium text-gray-700 hover:text-red-500 transition-colors duration-300"
+            >
+              Logout
+            </button>
           </li>
         </ul>
       </nav>
