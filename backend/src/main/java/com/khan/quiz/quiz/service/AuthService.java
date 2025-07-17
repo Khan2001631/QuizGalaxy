@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AuthService {
 
     @Autowired
     private  UserRepository userRepository;
@@ -28,7 +28,7 @@ public class UserService {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    public AuthResponse register(RegisterRequest request) {
+    public String register(RegisterRequest request) {
         // Check if user already exists
         if (userRepository.findByEmail(request.getEmail()) != null) {
             throw new RuntimeException("Email already in use");
@@ -59,10 +59,10 @@ public class UserService {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
-        return new AuthResponse(jwt);
+        return jwt;
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public String login(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
@@ -70,6 +70,6 @@ public class UserService {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
-        return new AuthResponse(jwt);
+        return jwt;
     }
 }

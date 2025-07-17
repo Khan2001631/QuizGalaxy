@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import MainNavigation from "../components/Navigation/MainNavigation";
+import Header from "../components/Navigation/Header";
 
 export default function RootPage(){
     return(
         <>
-            <MainNavigation />
+            <Header />
             <main>
                 <Outlet></Outlet>
             </main>

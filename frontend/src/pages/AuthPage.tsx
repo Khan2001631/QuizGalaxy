@@ -1,12 +1,9 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 import AuthForm from "../components/Authentication/AuthForm";
+import { loginUser, registerUser } from "../api/authAPI";
 
 export default function AuthPage() {
   return <AuthForm />;
-}
-
-function isInvalidText(value: FormDataEntryValue | null): boolean {
-  return !value || value.toString().trim() === "";
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -20,8 +17,6 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const formData = await request.formData();
-
-  // We'll collect errors here
   const errors: Record<string, string> = {};
 
   if (mode === "SignUp") {
@@ -31,69 +26,88 @@ export async function action({ request }: ActionFunctionArgs) {
     const password = formData.get("password");
     const gender = formData.get("gender");
 
-    // Validate fields
-    if (isInvalidText(firstName)) errors.firstName = "First name is required";
-    if (isInvalidText(lastName)) errors.lastName = "Last name is required";
-    if (isInvalidText(email)) errors.email = "Email is required";
-    if (isInvalidText(password)) errors.password = "Password is required";
-    if (isInvalidText(gender)) errors.gender = "Please select a gender";
-    if (typeof email === "string") {
-      if (!email.includes("@")) {
+    // Validations...
+    if (!firstName || firstName.toString().trim() === "") {
+      errors.firstName = "First name is required";
+    }
+    if (!lastName || lastName.toString().trim() === "") {
+      errors.lastName = "Last name is required";
+    }
+    if (!email || email.toString().trim() === "") {
+      errors.email = "Email is required";
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.toString())) {
         errors.email = "Invalid email";
       }
-      if(!email.includes(".com")){
-        errors.email = "Invalid email"
-      }
     }
-    
-    if(typeof password === "string"){
-      if(password.length < 8){
-        errors.password = "Weak password"
-      }
-      
+    if (!password || password.toString().trim().length < 8) {
+      errors.password = "Password must be at least 8 characters";
     }
-    
 
-    // If there are errors, return them
+    if (!gender) {
+      errors.gender = "Gender is required";
+    }
+
     if (Object.keys(errors).length > 0) {
-      return  {errors} ;
+      return { errors };
     }
 
-    // ✅ No errors: submit to backend
-    const data = {
-      firstName: firstName as string,
-      lastName: lastName as string,
+    const registerPayload = {
+      username: email as string, // or you can let user enter it
       email: email as string,
       password: password as string,
+      firstName: firstName as string,
+      lastName: lastName as string,
       gender: gender as string,
     };
 
-    //send to backend 
-    
-
-    return redirect("/")
-     // You can redirect or show success message
+    try {
+      await registerUser(registerPayload);
+      return redirect('/');
+    } catch (err: any) {
+      return {
+        errors: {
+          general:
+            err?.response?.data?.message ||
+            "Something went wrong during registration",
+        },
+      };
+    }
   }
 
   if (mode === "SignIn") {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    if (isInvalidText(email)) errors.email = "Email is required";
-    if (isInvalidText(password)) errors.password = "Password is required";
+    if (!email || email.toString().trim() === "") {
+      errors.email = "Email is required";
+    }
+    if (!password || password.toString().trim() === "") {
+      errors.password = "Password is required";
+    }
 
     if (Object.keys(errors).length > 0) {
       return { errors };
     }
 
-    const data = {
-      email: email as string,
-      password: password as string,
-    };
+    try {
+      const res = await loginUser({
+        email: email as string,
+        password: password as string,
+      });
 
-    //  authenticate with backend
-    
-    
-    return { success: true };
+      // Example: store token in localStorage
+      localStorage.setItem('token', res.data.token);
+
+      return redirect('/');
+    } catch (err: any) {
+      return {
+        errors: {
+          general:
+            err?.response?.data?.message || "Invalid email or password",
+        },
+      };
+    }
   }
 }
