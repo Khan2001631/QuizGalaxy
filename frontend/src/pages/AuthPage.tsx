@@ -1,6 +1,6 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 import AuthForm from "../components/Authentication/AuthForm";
-import { loginUser, registerUser } from "../api/authAPI";
+import { getCurrentUser, loginUser, registerUser } from "../api/authAPI";
 
 export default function AuthPage() {
   return <AuthForm />;
@@ -92,14 +92,10 @@ export async function action({ request }: ActionFunctionArgs) {
     }
 
     try {
-      const res = await loginUser({
+      await loginUser({
         email: email as string,
         password: password as string,
       });
-
-      // Example: store token in localStorage
-      localStorage.setItem('token', res.data.token);
-
       return redirect('/');
     } catch (err: any) {
       return {

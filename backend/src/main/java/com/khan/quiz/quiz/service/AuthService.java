@@ -4,8 +4,9 @@ import com.khan.quiz.quiz.dto.*;
 import com.khan.quiz.quiz.model.User;
 import com.khan.quiz.quiz.respository.UserRepository;
 import com.khan.quiz.quiz.utils.JwtUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,19 +19,15 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthService {
 
-    @Autowired
-    private  UserRepository userRepository;
-    @Autowired
-    private  AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;   // Final fields for dependency injection
+    private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-    @Autowired
-    private  JwtUtil jwtUtil;
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private final JwtUtil jwtUtil;
+    private final CustomUserDetailsService userDetailsService;
 
-    public String register(RegisterRequest request) {
+    public void register(RegisterRequest request, HttpServletResponse response) {
         // Check if user already exists
-        if (userRepository.findByEmail(request.getEmail()) != null) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RuntimeException("Email already in use");
         }
 
@@ -52,17 +49,17 @@ public class AuthService {
         userRepository.save(newUser);
 
         // Authenticate immediately after register
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
+        String jwt = jwtUtil.generateToken(newUser.getEmail());
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-        String jwt = jwtUtil.generateToken(userDetails.getUsername());
-
-        return jwt;
+        Cookie cookie = new Cookie("jwt", jwt);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // Allow over HTTP during local development
+        cookie.setPath("/");
+        cookie.setMaxAge(24 * 60 * 60); // 1 day
+        response.addCookie(cookie);
     }
 
-    public String login(LoginRequest request) {
+    public void login(LoginRequest request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
@@ -70,6 +67,13 @@ public class AuthService {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
-        return jwt;
+        Cookie cookie = new Cookie("jwt", jwt);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // Allow over HTTP during local development
+        cookie.setPath("/");
+        cookie.setMaxAge(24 * 60 * 60); // 1 day
+
+
+        response.addCookie(cookie);
     }
 }
