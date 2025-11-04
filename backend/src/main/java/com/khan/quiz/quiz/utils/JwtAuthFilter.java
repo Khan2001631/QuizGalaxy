@@ -76,6 +76,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        String path = request.getRequestURI();
+        // ⛔ Skip JWT validation for public endpoints
+        if (path.contains("/api/auth/login") || path.contains("/api/auth/register")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         // ✅ 1. Extract token from cookie instead of header
         String jwt = null;
         Cookie[] cookies = request.getCookies();

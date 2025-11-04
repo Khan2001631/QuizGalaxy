@@ -1,11 +1,19 @@
 package com.khan.quiz.quiz.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_quiz_sessions")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserQuizSession {
 
     @Id
@@ -20,6 +28,7 @@ public class UserQuizSession {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    @Column(nullable = false)
     private Integer totalScore;
 
     // Optional: how many questions were in this quiz
@@ -34,4 +43,6 @@ public class UserQuizSession {
     // Optional: number of correct/wrong
     private Integer correctAnswers;
     private Integer wrongAnswers;
+
+    private Integer skipped = 0;
 }

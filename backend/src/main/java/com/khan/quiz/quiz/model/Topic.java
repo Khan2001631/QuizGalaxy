@@ -1,5 +1,6 @@
 package com.khan.quiz.quiz.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -26,5 +27,6 @@ public class Topic {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Question> questions;
 }

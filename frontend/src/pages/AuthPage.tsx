@@ -1,6 +1,7 @@
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
 import AuthForm from "../components/Authentication/AuthForm";
 import { getCurrentUser, loginUser, registerUser } from "../api/authAPI";
+import { setFlashMessage } from "../utils/utils";
 
 export default function AuthPage() {
   return <AuthForm />;
@@ -64,13 +65,17 @@ export async function action({ request }: ActionFunctionArgs) {
 
     try {
       await registerUser(registerPayload);
+      const res = await getCurrentUser();
+      // save data to local storage
+      console.log(res);
+      localStorage.setItem('user', JSON.stringify(res));
+      setFlashMessage("Logged in!");
       return redirect('/');
     } catch (err: any) {
       return {
+        status: "error",
         errors: {
-          general:
-            err?.response?.data?.message ||
-            "Something went wrong during registration",
+          general: err?.response?.data?.message || "Something went wrong during registration",
         },
       };
     }
@@ -96,14 +101,21 @@ export async function action({ request }: ActionFunctionArgs) {
         email: email as string,
         password: password as string,
       });
+      const res = await getCurrentUser();
+      // save data to local storage
+      console.log('test');
+      
+      localStorage.setItem('user', JSON.stringify(res));
       return redirect('/');
     } catch (err: any) {
+      console.log(err);
+      
       return {
-        errors: {
-          general:
-            err?.response?.data?.message || "Invalid email or password",
-        },
-      };
+      status: "error",
+      errors: {
+        general: err?.response?.data?.message || "Invalid email or password",
+      },
+    };
     }
   }
 }

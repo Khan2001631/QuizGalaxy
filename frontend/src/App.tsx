@@ -1,28 +1,37 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
 import HomePage from "./pages/Home";
 import AuthPage, { action as AuthAction } from "./pages/AuthPage";
 import RootPage from "./pages/RootPage";
+import QuizSetupPage from "./pages/QuizSetupPage";
+import QuizPage from './pages/QuizPage'
 
-function App() {
-  const route = createBrowserRouter([
+const App = () => {
+    const route = createBrowserRouter([
     {
-      path: "/",
-      element: <RootPage />,
-      children: [
-        {
-          path: "/",
-          element: <HomePage />,
-        },
-        {
-          path: "/auth",
-          element: <AuthPage />,
-          action: AuthAction
-        },
-      ],
+        path: "/",
+        element: <RootPage />,
+        children: [
+            {
+                path: "/",
+                element: <HomePage />,
+            },
+            {
+                path: "/auth",
+                element: <AuthPage />,
+                action: AuthAction
+            },
+            {
+                path: "/quiz",
+                element: <QuizSetupPage />
+            },
+            {
+                path: "/quiz/start", // ✅ Register this new route
+                element: <QuizPage />
+            }
+        ],
     },
-  ]);
-  return <RouterProvider router={route} />;
+    ]);
+    return <RouterProvider router={route} />;
 }
 
 export default App;

@@ -55,7 +55,7 @@ public class AuthService {
         cookie.setHttpOnly(true);
         cookie.setSecure(false); // Allow over HTTP during local development
         cookie.setPath("/");
-        cookie.setMaxAge(24 * 60 * 60); // 1 day
+        cookie.setMaxAge(60 * 60); // 1 hour
         response.addCookie(cookie);
     }
 

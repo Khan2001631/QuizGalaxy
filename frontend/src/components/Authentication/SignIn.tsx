@@ -1,6 +1,19 @@
-import { Form, NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { Form, NavLink, useActionData } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
+  const actionData = useActionData() as {
+    status?: string;
+    errors?: Record<string, string>;
+  }
+
+  useEffect(() => {
+    if (actionData?.status === "error" && actionData.errors?.general) {
+      toast.error(actionData.errors.general);
+    }
+  }, [actionData]);
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">

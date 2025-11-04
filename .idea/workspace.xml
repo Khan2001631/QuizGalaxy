@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fbe6d87-9fb1-478c-83eb-90eb7987fb8c" name="Changes" comment="" />
+    <list default="true" id="5fbe6d87-9fb1-478c-83eb-90eb7987fb8c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/controller/QuizController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/FinishQuizRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/FinishQuizResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/QuestionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/QuizOptionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/QuizSessionResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/QuizSummaryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/StartQuizRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/StartQuizResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/SubmitAnswerRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/SubmitAnswerResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/dto/UserQuizQuestionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/mapper/QuizMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/model/UserAnswer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/model/UserQuizQuestion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/respository/UserAnswerRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/respository/UserQuizQuestionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/service/QuizSessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/model/Topic.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/model/Topic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/model/UserQuizSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/model/UserQuizSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/model/UserResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/respository/QuestionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/respository/QuestionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/respository/UserQuizSessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/respository/UserQuizSessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/respository/UserResponseRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/utils/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/utils/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/khan/quiz/quiz/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Authentication/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Authentication/SignIn.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AuthPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/RootPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RootPage.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,9 +50,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2zkiicImPfwBZipKHifPH9UkJjI" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -23,7 +63,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "state__management",
     "last_opened_file_path": "C:/Users/Acer/Downloads/quizz-galaxy/QuizGalaxy"
   }
 }]]></component>

@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
-import { getCurrentUser } from '../../api/authAPI';
-
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { getFlashMessage } from "../../utils/utils";
 
 const  Home = () => {
 
-  const fetchUser = async () => {
-      try {
-        const user = await getCurrentUser();
-        console.log('Current user:', user);
-      } catch (err) {
-        console.error('Error fetching current user:', err);
-      }
-    };
+  useEffect(() => {    
+    const message = getFlashMessage();
+    console.log(message);
+    
+    if (message) {
+      toast.success(message);
+    }
+  }, []);
   
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center px-4 text-center">
@@ -26,7 +26,7 @@ const  Home = () => {
 
       {/* Actions */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-        <button onClick={fetchUser} className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400">
+        <button className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400">
           Host a Quiz
         </button>
         <button className="px-6 py-3 bg-white border border-indigo-300 text-indigo-600 font-semibold rounded-lg shadow-sm hover:bg-indigo-50 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400">

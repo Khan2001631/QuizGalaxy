@@ -1,0 +1,5 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+weaviate-client>=4.0.0
+langchain-google-genai
