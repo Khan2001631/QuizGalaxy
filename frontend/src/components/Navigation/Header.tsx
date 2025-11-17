@@ -16,7 +16,7 @@ export default function Header() {
   };
   
   return (
-    <header className="bg-gradient-to-r from-orange-50 to-pink-50 shadow-md">
+    <header className="bg-blue-50 shadow-md">
       <nav className="container mx-auto flex items-center justify-between px-6 py-4">
         {/* Brand name */}
         <div className="text-2xl font-extrabold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent tracking-wide">

@@ -4,6 +4,11 @@ import AuthPage, { action as AuthAction } from "./pages/AuthPage";
 import RootPage from "./pages/RootPage";
 import QuizSetupPage from "./pages/QuizSetupPage";
 import QuizPage from './pages/QuizPage'
+import CreateQuestionSlide from "./components/question/CreateQuestionSlide";
+import { postQuestionAction } from "./actions/Questions";
+
+
+
 
 const App = () => {
     const route = createBrowserRouter([
@@ -27,6 +32,16 @@ const App = () => {
             {
                 path: "/quiz/start", // ✅ Register this new route
                 element: <QuizPage />
+            },
+            // {
+            //     path: "create/quiz",
+            //     element: <HostQuiz />
+            // },
+            {
+                path: "create/question",
+                element: <CreateQuestionSlide/>,
+                action: postQuestionAction,
+
             }
         ],
     },
